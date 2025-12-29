@@ -8,24 +8,27 @@ import Cart from './pages/Cart';
 import Success from './pages/Success';
 import Cancel from './pages/Cancel';
 import Contact from './pages/Contact';
-import Images from './pages/Images';
+import Music from './pages/Music';
+import Video from './pages/Video';
 import Placeholder from './pages/Placeholder';
 
 function App() {
   return (
     <CartProvider>
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/store" element={<Store />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/success" element={<Success />} />
-        <Route path="/cancel" element={<Cancel />} />
-        <Route path="/music" element={<Placeholder title="Music" />} />
-        <Route path="/images" element={<Images />} />
-        <Route path="/video" element={<Placeholder title="Video" />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <main style={{ flex: 1, width: '100%' }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/cancel" element={<Cancel />} />
+          <Route path="/music" element={<Music />} />
+          <Route path="/images" element={<Placeholder title="Images" />} />
+          <Route path="/video" element={<Video />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </main>
       <Footer />
     </CartProvider>
   );

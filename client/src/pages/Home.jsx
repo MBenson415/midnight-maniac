@@ -2,6 +2,9 @@ export default function Home() {
   return (
     <div className="container">
       <div className="hero">
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <img src="https://squarespacemusic.blob.core.windows.net/$web/midnightmaniac.png" alt="Midnight Maniac" />
+        </div>
         <h1>MIDNIGHT MANIAC</h1>
         <p>Progressive Pop / Electronic / Hard Rock</p>
       </div>

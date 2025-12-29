@@ -11,8 +11,8 @@ export default function Navbar() {
       <Link to="/music">Music</Link>
       <Link to="/images">Images</Link>
       <Link to="/video">Video</Link>
-      <Link to="/store">Store</Link>
       <Link to="/contact">Contact</Link>
+      <Link to="/store">Store</Link>
       <Link to="/cart">Cart ({itemCount})</Link>
     </nav>
   );
