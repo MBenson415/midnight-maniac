@@ -1,1 +1,10 @@
-{}
+{
+  "name": "midnight-maniac",
+  "version": "1.0.0",
+  "description": "Midnight Maniac Website",
+  "scripts": {
+    "start": "concurrently \"npm start --prefix api\" \"npm run dev --prefix client\"",
+    "install:all": "npm install && npm install --prefix api && npm install --prefix client"
+  },
+  "devDependencies": {}
+}
