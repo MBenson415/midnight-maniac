@@ -7,6 +7,7 @@ function ProductCard({ product }) {
   const [selectedPriceId, setSelectedPriceId] = useState(
     product.prices && product.prices.length > 0 ? product.prices[0].id : null
   );
+  const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = () => {
     if (!selectedPriceId) return;
@@ -20,6 +21,9 @@ function ProductCard({ product }) {
       priceId: selectedPrice.id,
       variantName: selectedPrice.nickname || selectedPrice.description
     });
+
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 2000);
   };
 
   const currentPrice = product.prices.find(p => p.id === selectedPriceId);
@@ -47,7 +51,27 @@ function ProductCard({ product }) {
         <p>${currentPrice ? (currentPrice.unit_amount / 100).toFixed(2) : 'N/A'}</p>
       )}
       
-      <button onClick={handleAddToCart} disabled={!currentPrice}>Add to Cart</button>
+      <button onClick={handleAddToCart} disabled={!currentPrice}>
+        {isAdded ? (
+          <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+            Added to cart!
+            <span style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              justifyContent: 'center', 
+              width: '20px', 
+              height: '20px', 
+              backgroundColor: '#4CAF50', 
+              color: 'white', 
+              borderRadius: '50%', 
+              fontSize: '14px',
+              fontWeight: 'bold'
+            }}>✓</span>
+          </span>
+        ) : (
+          "Add to Cart"
+        )}
+      </button>
     </div>
   );
 }
