@@ -6,5 +6,7 @@
     "start": "concurrently \"npm start --prefix api\" \"npm run dev --prefix client\"",
     "install:all": "npm install && npm install --prefix api && npm install --prefix client"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }
