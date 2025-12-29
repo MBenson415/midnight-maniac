@@ -2,7 +2,7 @@ node_modules
 .DS_Store
 dist
 .env
-.vscode
+
 coverage
 local.settings.json
 api/local.settings.json
