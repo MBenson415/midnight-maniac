@@ -2,9 +2,18 @@ const Stripe = require('stripe');
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 module.exports = async function (context, req) {
+    if (!process.env.STRIPE_SECRET_KEY) {
+        context.log.error("STRIPE_SECRET_KEY is missing");
+        context.res = {
+            status: 500,
+            body: { error: "Server configuration error: Missing Stripe key" }
+        };
+        return;
+    }
+    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
     try {
         const [productsResponse, pricesResponse] = await Promise.all([
             stripe.products.list({ active: true, limit: 100 }),
