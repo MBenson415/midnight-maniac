@@ -3,14 +3,20 @@ export default function Home() {
     <div className="container">
       <div className="hero">
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <img src="https://squarespacemusic.blob.core.windows.net/$web/midnightmaniac.png" alt="Midnight Maniac" />
+          <img 
+            src="https://squarespacemusic.blob.core.windows.net/$web/midnightmaniac_trans.png" 
+            alt="Midnight Maniac"
+            style={{ transition: 'filter 0.3s ease' }}
+            onMouseEnter={(e) => (e.currentTarget.style.filter = 'drop-shadow(0 0 1px #f9166f) drop-shadow(0 0 40px #f9166f)')}
+            onMouseLeave={(e) => (e.currentTarget.style.filter = 'none')}
+          />
         </div>
-        <h1>MIDNIGHT MANIAC</h1>
-        <p>Progressive Pop / Electronic / Hard Rock</p>
       </div>
+
       
       <section>
-        <h2>WHO IS MIDNIGHT MANIAC?</h2>
+        <h1>WHO IS MIDNIGHT MANIAC?</h1>
+        <h2>Progressive Pop / Electronic / Hard Rock</h2>
         <p>
           Midnight Maniac is a progressive pop act that combines electronic and upbeat
           hard rock elements to create a fresh and darkly compelling sound. Established in
@@ -25,6 +31,9 @@ export default function Home() {
           memorable hooks.
         </p>
       </section>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+        <img src="https://squarespacemusic.blob.core.windows.net/$web/mm-full.jpg" alt="Midnight Maniac Band" style={{ maxWidth: '100%', borderRadius: '12px' }} />
+      </div>
     </div>
   );
 }

@@ -10,6 +10,7 @@ import Cancel from './pages/Cancel';
 import Contact from './pages/Contact';
 import Music from './pages/Music';
 import Video from './pages/Video';
+import Band from './pages/Band';
 import Placeholder from './pages/Placeholder';
 
 function App() {
@@ -24,8 +25,8 @@ function App() {
           <Route path="/success" element={<Success />} />
           <Route path="/cancel" element={<Cancel />} />
           <Route path="/music" element={<Music />} />
-          <Route path="/images" element={<Placeholder title="Images" />} />
           <Route path="/video" element={<Video />} />
+          <Route path="/band" element={<Band />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
