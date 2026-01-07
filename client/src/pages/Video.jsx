@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 const videos = [
-  { id: 'vBHvpq8jJrk', title: 'Video 1' },
-  { id: 'zp-Q_c3p6Cc', title: 'Video 3' },
-  { id: 'bWR73eA90Nk', title: 'Video 4' },
-  { id: 'jUZCTqpViCQ', title: 'Video 5' },
+  { id: 'vBHvpq8jJrk', si: '-00-U6r5OrQjZona', title: 'Video 1' },
+  { id: 'zp-Q_c3p6Cc', si: 'KgUZ4FvURamYM5zy', title: 'Video 2' },
+  { id: 'bWR73eA90Nk', si: 'CX99Xdg3dLS9Egyn', title: 'Video 3' },
+  { id: 'jUZCTqpViCQ', si: 'OtlTIC8OIx1uS40o', title: 'Video 4' },
 ];
 
 export default function Video() {
@@ -24,12 +24,12 @@ export default function Video() {
           <iframe 
             width="100%" 
             height="100%" 
-            src={`https://www.youtube-nocookie.com/embed/${selectedVideo.id}?rel=0&modestbranding=1`}
-            title={selectedVideo.title}
+            src={`https://www.youtube.com/embed/${selectedVideo.id}${selectedVideo.si ? `?si=${selectedVideo.si}` : ''}`}
+            title="YouTube video player"
             frameBorder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
-            loading="lazy"
             style={{ borderRadius: '12px' }}
           ></iframe>
         </div>
