@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
+import usePageTitle from '../hooks/usePageTitle';
 
 export default function Live() {
+  usePageTitle('Live');
+
   return (
     <div className="container" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
       <h1>Live</h1>

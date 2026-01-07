@@ -1,10 +1,12 @@
 import { useCart } from '../context/CartContext';
 import { loadStripe } from '@stripe/stripe-js';
+import usePageTitle from '../hooks/usePageTitle';
 
 // Replace with your actual publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 export default function Cart() {
+  usePageTitle('Cart');
   const { cart, removeFromCart, updateQuantity } = useCart();
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);

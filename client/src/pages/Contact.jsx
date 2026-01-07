@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
+import usePageTitle from '../hooks/usePageTitle';
 
 export default function Contact() {
+  usePageTitle('Contact');
   const [formData, setFormData] = useState({ name: '', subject: '', message: '' });
   const [status, setStatus] = useState('');
 

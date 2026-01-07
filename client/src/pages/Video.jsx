@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import usePageTitle from '../hooks/usePageTitle';
 
 const videos = [
   { id: 'vBHvpq8jJrk', si: '-00-U6r5OrQjZona', title: 'Video 1' },
@@ -9,6 +10,7 @@ const videos = [
 
 export default function Video() {
   const [selectedVideo, setSelectedVideo] = useState(videos[0]);
+  usePageTitle('Video');
 
   return (
     <div className="container">

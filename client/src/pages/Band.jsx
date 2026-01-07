@@ -1,4 +1,5 @@
 import React from 'react';
+import usePageTitle from '../hooks/usePageTitle';
 
 const members = [
   {
@@ -96,6 +97,8 @@ function MemberCard({ member }) {
 }
 
 export default function Band() {
+  usePageTitle('The Band');
+
   return (
     <div className="container">
       <h1>The Band</h1>

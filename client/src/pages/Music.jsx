@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import usePageTitle from '../hooks/usePageTitle';
 
 const tracks = [
   { title: 'I Heard It In A Nightmare', lyrics: `Can't turn my head, I'm falling
@@ -287,6 +288,8 @@ function LyricsAccordion({ track }) {
 }
 
 export default function Music() {
+  usePageTitle('Music');
+
   return (
     <div className="container">
       <h1>Music</h1>

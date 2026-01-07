@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import usePageTitle from '../hooks/usePageTitle';
 
 function ProductCard({ product }) {
   const { addToCart } = useCart();
@@ -77,6 +78,7 @@ function ProductCard({ product }) {
 }
 
 export default function Store() {
+  usePageTitle('Store');
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
