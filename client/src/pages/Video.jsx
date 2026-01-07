@@ -24,12 +24,12 @@ export default function Video() {
           <iframe 
             width="100%" 
             height="100%" 
-            src={`https://www.youtube.com/embed/${selectedVideo.id}?autoplay=0`}
+            src={`https://www.youtube-nocookie.com/embed/${selectedVideo.id}?rel=0&modestbranding=1`}
             title={selectedVideo.title}
             frameBorder="0" 
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerPolicy="strict-origin-when-cross-origin" 
             allowFullScreen
+            loading="lazy"
             style={{ borderRadius: '12px' }}
           ></iframe>
         </div>
