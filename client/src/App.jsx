@@ -11,6 +11,7 @@ import Contact from './pages/Contact';
 import Music from './pages/Music';
 import Video from './pages/Video';
 import Band from './pages/Band';
+import Live from './pages/Live';
 import Placeholder from './pages/Placeholder';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/music" element={<Music />} />
           <Route path="/video" element={<Video />} />
           <Route path="/band" element={<Band />} />
+          <Route path="/live" element={<Live />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>

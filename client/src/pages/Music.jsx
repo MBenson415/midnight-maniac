@@ -298,7 +298,7 @@ export default function Music() {
           style={{ borderRadius: '12px', maxWidth: '100%' }} 
           src="https://open.spotify.com/embed/artist/4cybofvMhNCcdfGKkGrV5C?utm_source=generator" 
           width="100%" 
-          height="400" 
+          height="420" 
           frameBorder="0" 
           allowFullScreen="" 
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 

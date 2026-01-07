@@ -89,6 +89,7 @@ export default function Navbar() {
         <Link to="/band" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>The Band</Link>
         <Link to="/music" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Music</Link>
         <Link to="/video" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Video</Link>
+        <Link to="/live" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Live</Link>
         <Link to="/contact" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Contact</Link>
         <Link to="/store" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Store</Link>
         <Link to="/cart" style={linkStyle} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Cart ({itemCount})</Link>
@@ -115,6 +116,7 @@ export default function Navbar() {
         <Link to="/band" style={linkStyle} onClick={handleLinkClick}>The Band</Link>
         <Link to="/music" style={linkStyle} onClick={handleLinkClick}>Music</Link>
         <Link to="/video" style={linkStyle} onClick={handleLinkClick}>Video</Link>
+        <Link to="/live" style={linkStyle} onClick={handleLinkClick}>Live</Link>
         <Link to="/contact" style={linkStyle} onClick={handleLinkClick}>Contact</Link>
         <Link to="/store" style={linkStyle} onClick={handleLinkClick}>Store</Link>
         <Link to="/cart" style={linkStyle} onClick={handleLinkClick}>Cart ({itemCount})</Link>
