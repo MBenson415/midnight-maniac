@@ -49,6 +49,7 @@ module.exports = async function (context, req) {
             payment_method_types: ['card'],
             line_items: line_items,
             mode: 'payment',
+            allow_promotion_codes: true,
             success_url: `${req.headers.origin}/success`,
             cancel_url: `${req.headers.origin}/cancel`,
         });
