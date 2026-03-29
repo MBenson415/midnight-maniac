@@ -50,6 +50,9 @@ module.exports = async function (context, req) {
             line_items: line_items,
             mode: 'payment',
             allow_promotion_codes: true,
+            shipping_address_collection: {
+                allowed_countries: ['US', 'CA'],
+            },
             success_url: `${req.headers.origin}/success`,
             cancel_url: `${req.headers.origin}/cancel`,
         });
