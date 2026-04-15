@@ -19,6 +19,11 @@ export default function Home() {
 
       
       <section>
+        <h1>Coming May 2026</h1>
+        <h2>Fifth single release: <i>Sunlit Streets</i></h2>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+        <img src="https://squarespacemusic.blob.core.windows.net/$web/banner.png" alt="Midnight Maniac Band" style={{ maxWidth: '100%', borderRadius: '12px' }} />
+      </div>
         <h1>WHO IS MIDNIGHT MANIAC?</h1>
         <h2>Progressive Pop / Electronic / Hard Rock</h2>
         <p>
@@ -35,9 +40,9 @@ export default function Home() {
           memorable hooks.
         </p>
       </section>
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+      {/* <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
         <img src="https://squarespacemusic.blob.core.windows.net/$web/mm-full.jpg" alt="Midnight Maniac Band" style={{ maxWidth: '100%', borderRadius: '12px' }} />
-      </div>
+      </div> */}
     </div>
   );
 }
