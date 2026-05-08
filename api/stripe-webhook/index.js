@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
-const NOTIFY_TO = 'jallard530@gmail.com';
+const NOTIFY_TO = process.env.NOTIFY_TO;
 const STRIPE_ACCOUNT_ID = 'acct_1Rtryb2QdlAL5W5A';
 
 function formatAmount(amount, currency) {
