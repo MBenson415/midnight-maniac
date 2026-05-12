@@ -13,6 +13,7 @@ import Video from './pages/Video';
 import Band from './pages/Band';
 import Live from './pages/Live';
 import Placeholder from './pages/Placeholder';
+import Reward from './pages/Reward';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/band" element={<Band />} />
           <Route path="/live" element={<Live />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/reward" element={<Reward />} />
         </Routes>
       </main>
       <Footer />
