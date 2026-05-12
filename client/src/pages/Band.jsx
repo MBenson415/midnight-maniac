@@ -37,6 +37,15 @@ const featuredArtists = [
   },
 ];
 
+const executiveProducers = [
+  {
+    name: 'Neal Combies',
+    role: 'Executive Producer',
+    description: 'Neal is a major backer of the Midnight Maniac project and official Executive Producer.',
+    image: 'https://squarespacemusic.blob.core.windows.net/$web/neal.jpg',
+  },
+];
+
 const productionTeam = [
   {
     name: 'Kevin 131 Gutierrez',
@@ -174,6 +183,62 @@ export default function Band() {
               </p>
               <p style={{ color: '#aaa', textAlign: 'center', lineHeight: '1.6', fontSize: '0.95rem' }}>
                 {artist.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Executive Producer Section */}
+      <section style={{ marginTop: '4rem' }}>
+        <h2>Executive Producer</h2>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: '2rem',
+            marginTop: '2rem',
+          }}
+        >
+          {executiveProducers.map((person, index) => (
+            <div
+              key={index}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: '2rem',
+                background: '#1a1a1a',
+                borderRadius: '12px',
+                maxWidth: '300px',
+                width: '100%',
+              }}
+            >
+              <div
+                style={{
+                  width: '180px',
+                  height: '180px',
+                  borderRadius: '50%',
+                  background: person.image ? `url(${person.image}) center/cover` : '#333',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#666',
+                  fontSize: '0.8rem',
+                  textAlign: 'center',
+                }}
+              >
+                {!person.image && 'Photo coming soon'}
+              </div>
+              <h3 style={{ marginTop: '1.5rem', marginBottom: '0.5rem', color: '#fff' }}>
+                {person.name}
+              </h3>
+              <p style={{ color: '#f9166f', fontWeight: '500', marginBottom: '1rem', textAlign: 'center' }}>
+                {person.role}
+              </p>
+              <p style={{ color: '#aaa', textAlign: 'center', lineHeight: '1.6', fontSize: '0.95rem' }}>
+                {person.description}
               </p>
             </div>
           ))}

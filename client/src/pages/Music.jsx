@@ -242,7 +242,54 @@ Still I'm Flying High with you` },
     I can't change the life that we're meant to have
     I can't change 'cause it's Heresy
     ` },
-  { title: 'Sunlit Streets (Coming Soon!)', lyrics: ``, comingSoon: true },
+  { title: 'Sunlit Streets', lyrics: `Caught in a dream-like state again
+No chance of losing it today
+"Reject reality", they said
+And all my worries fade away
+
+I need the light of day
+Can't stand to get away
+I don't believe you when you say
+That I'm cured
+
+And then the letters come so clear
+I'm in a dream-like state again 
+And all my worries fade away
+
+Trapped in a world within my head
+No chance I'll see another day
+Forget reality again
+Still all my worries fade away
+
+I need the light of day
+Can't stand to get away
+I don't believe you when you say
+That I'm cured
+
+And then the letters come so clear
+I'm in a dream-like state again
+And all my worries fade away
+
+The self-inflicted curse of instigation
+The myth of self control's imagination
+
+The sunlit streets at night
+Cut through my mind
+Awake and cutting time
+
+I need the light of day
+Can't' stand to get away
+I don't believe you when you say
+I'm cured
+
+Yeah yeah, and then the letters come so clear
+I'm in a dream-like state again--Oh yeah
+
+Then sunlit streets at night cut through my mind
+Awake and in a dream-like cutting time
+I need the light of day, can't stand to get away
+I don't believe you when you say…
+`, comingSoon: false },
 ];
 
 function LyricsAccordion({ track }) {
