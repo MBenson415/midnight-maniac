@@ -35,6 +35,17 @@ const RECIPIENTS = [
 const SITE_URL = (process.env.SITE_URL || 'https://midnightmaniac.net').replace(/\/$/, '');
 const CLAIM_TTL_DAYS = 30;
 const DRY_RUN = !process.argv.includes('--send');
+// --to <email> overrides the recipient list with a single address (for testing).
+function getArgValue(flag) {
+    const inline = process.argv.find((a) => a.startsWith(`${flag}=`));
+    if (inline) return inline.slice(flag.length + 1);
+    const idx = process.argv.indexOf(flag);
+    if (idx !== -1 && process.argv[idx + 1] && !process.argv[idx + 1].startsWith('--')) {
+        return process.argv[idx + 1];
+    }
+    return null;
+}
+const ONLY_TO = getArgValue('--to');
 const COVER_IMAGE_PATH = path.join(__dirname, '..', '..', 'assets', 'Sunlit Streets Cover.png');
 const COVER_CID = 'sunlit-streets-cover';
 
@@ -217,14 +228,16 @@ async function main() {
         process.exit(1);
     }
 
+    const recipients = ONLY_TO ? [ONLY_TO] : RECIPIENTS;
+
     console.log(`Mode:        ${DRY_RUN ? 'DRY RUN (no DB writes, no emails)' : 'LIVE SEND'}`);
     console.log(`Site URL:    ${SITE_URL}`);
     console.log(`From:        ${process.env.GMAIL_USER}`);
-    console.log(`Recipients:  ${RECIPIENTS.length}`);
+    console.log(`Recipients:  ${recipients.length}${ONLY_TO ? ` (--to override: ${ONLY_TO})` : ''}`);
     console.log('');
 
     if (DRY_RUN) {
-        for (const email of RECIPIENTS) {
+        for (const email of recipients) {
             console.log(`[dry] would create claim + email ${email.toLowerCase()}`);
         }
         console.log('');
@@ -240,7 +253,7 @@ async function main() {
 
     const summary = { created: 0, reused: 0, already_claimed: 0, sent: 0, failed: 0 };
 
-    for (const rawEmail of RECIPIENTS) {
+    for (const rawEmail of recipients) {
         const email = String(rawEmail).trim().toLowerCase();
         try {
             const { token, status } = await getOrCreateClaimToken(pool, email);
