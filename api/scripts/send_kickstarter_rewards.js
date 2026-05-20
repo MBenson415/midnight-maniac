@@ -32,7 +32,7 @@ const RECIPIENTS = [
     'pncombies@yahoo.com',
 ];
 
-const SITE_URL = (process.env.SITE_URL || 'https://midnightmaniacband.com').replace(/\/$/, '');
+const SITE_URL = (process.env.SITE_URL || 'https://midnightmaniac.net').replace(/\/$/, '');
 const CLAIM_TTL_DAYS = 30;
 const DRY_RUN = !process.argv.includes('--send');
 const COVER_IMAGE_PATH = path.join(__dirname, '..', '..', 'assets', 'Sunlit Streets Cover.png');
@@ -54,10 +54,10 @@ function buildEmail(downloadUrl) {
     const text = [
         'Hey there,',
         '',
-        'Thank you so much for backing Midnight Maniac on Kickstarter. Without supporters like you, none of this would exist.',
-        '',
-        'Your reward is ready — here is your private download link for "Sunlit Streets":',
+        'The download link in our last email didn\'t work — our apologies for that. Here is the corrected private download link for your "Sunlit Streets" reward:',
         downloadUrl,
+        '',
+        'Thank you again for backing Midnight Maniac on Kickstarter. Without supporters like you, none of this would exist.',
         '',
         'A couple of things to know:',
         '- The link only works one time. Make sure to save the file when it downloads.',
@@ -88,11 +88,18 @@ function buildEmail(downloadUrl) {
             <td style="padding:8px 32px 28px 32px; background-color:#18181d; border-bottom:1px solid #2a2a31; text-align:center;">
               <div style="font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#a02040; font-weight:700; margin-bottom:6px;">Midnight Maniac &middot; Kickstarter Reward</div>
               <div style="font-size:22px; font-weight:700; color:#ffffff; line-height:1.3;">Thank you for backing us.</div>
-              <div style="font-size:14px; color:#9a9aa3; margin-top:8px;">Your download is ready.</div>
+              <div style="font-size:14px; color:#9a9aa3; margin-top:8px;">Here&rsquo;s your corrected download link.</div>
             </td>
           </tr>
           <tr>
-            <td style="padding:28px 32px; font-size:15px; color:#e8e8ea; line-height:1.7;">
+            <td style="padding:24px 32px 0 32px;">
+              <div style="background-color:#241115; border:1px solid #5a2030; border-radius:6px; padding:14px 18px; font-size:14px; color:#f0c0cc; line-height:1.6;">
+                <strong style="color:#ffffff;">Heads up:</strong> the download link in our last email didn&rsquo;t work &mdash; our apologies. The corrected link below is ready to go.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:24px 32px 4px 32px; font-size:15px; color:#e8e8ea; line-height:1.7;">
               Without backers like you, none of this would exist. As a thank-you for supporting Midnight Maniac on Kickstarter, here&rsquo;s your private download of <strong>Sunlit Streets</strong>.
             </td>
           </tr>
@@ -187,7 +194,7 @@ async function sendOne(transporter, fromUser, toEmail, downloadUrl) {
     await transporter.sendMail({
         from: `"Midnight Maniac" <${fromUser}>`,
         to: toEmail,
-        subject: 'Your Midnight Maniac Kickstarter reward is ready -- Download "Sunlit Streets"!',
+        subject: 'Corrected link -- your Midnight Maniac Kickstarter reward ("Sunlit Streets")',
         text,
         html,
         attachments: [{
