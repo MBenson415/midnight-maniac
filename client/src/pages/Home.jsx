@@ -19,7 +19,7 @@ export default function Home() {
 
       
       <section>
-        <h1>Coming May 2026</h1>
+        <h1>Coming July 2026</h1>
         <h2>Fifth single release: <i>Sunlit Streets</i></h2>
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
         <img src="https://squarespacemusic.blob.core.windows.net/$web/banner.png" alt="Midnight Maniac Band" style={{ maxWidth: '100%', borderRadius: '12px' }} />
