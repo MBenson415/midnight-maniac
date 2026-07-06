@@ -1,11 +1,121 @@
 const Stripe = require('stripe');
+const sql = require('mssql');
+const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const { sendRewardEmail } = require('../shared/reward-email');
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
 const NOTIFY_TO = process.env.NOTIFY_TO;
 const STRIPE_ACCOUNT_ID = 'acct_1Rtryb2QdlAL5W5A';
+const SUNLIT_PRE_RELEASE_PRODUCT_ID = 'prod_Upw9RPd1v2soTk';
+const CLAIM_TTL_DAYS = 30;
+
+let poolPromise;
+
+function getPool() {
+  if (!poolPromise) {
+    poolPromise = new sql.ConnectionPool({
+      server: process.env.DB_SERVER,
+      database: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      options: {
+        encrypt: true,
+        trustServerCertificate: process.env.DB_TRUST_CERT === 'true'
+      },
+      pool: { max: 5, min: 0, idleTimeoutMillis: 30000 }
+    }).connect().catch((err) => {
+      poolPromise = undefined;
+      throw err;
+    });
+  }
+  return poolPromise;
+}
+
+function getBaseUrl(req) {
+  if (process.env.SITE_URL) {
+    return process.env.SITE_URL.replace(/\/$/, '');
+  }
+  if (process.env.WEBSITE_HOSTNAME) {
+    return `https://${process.env.WEBSITE_HOSTNAME}`;
+  }
+  if (req?.headers?.host) {
+    return `https://${req.headers.host}`;
+  }
+  throw new Error('Missing SITE_URL/WEBSITE_HOSTNAME to construct download link');
+}
+
+function sessionHasSunlitPreRelease(session) {
+  const items = session?.line_items?.data || [];
+  return items.some((item) => {
+    const product = item?.price?.product;
+    const productId = typeof product === 'string' ? product : product?.id;
+    return productId === SUNLIT_PRE_RELEASE_PRODUCT_ID;
+  });
+}
+
+async function issueAndSendSunlitDownloadEmail(session, req) {
+  const dbRequired = ['DB_SERVER', 'DB_NAME', 'DB_USER', 'DB_PASSWORD'];
+  const missingDb = dbRequired.filter((k) => !process.env[k]);
+  if (missingDb.length) {
+    throw new Error(`Missing DB env vars: ${missingDb.join(', ')}`);
+  }
+
+  const purchaserEmail = String(session.customer_details?.email || session.customer_email || '').trim().toLowerCase();
+  if (!purchaserEmail) {
+    throw new Error(`Missing customer email for session ${session.id}`);
+  }
+
+  const pool = await getPool();
+  const existing = await pool.request()
+    .input('email', sql.NVarChar(254), purchaserEmail)
+    .query('SELECT claim_token, claimed_at, expires_at FROM dbo.Midnight_Maniac_Invite_Claims WHERE email = @email');
+
+  let claimToken;
+  if (existing.recordset.length) {
+    const row = existing.recordset[0];
+    const expiresAt = row.expires_at ? new Date(row.expires_at) : null;
+    const isExpired = !!(expiresAt && expiresAt <= new Date());
+
+    if (row.claimed_at || isExpired) {
+      claimToken = crypto.randomBytes(32).toString('hex');
+      const refreshedExpiry = new Date(Date.now() + CLAIM_TTL_DAYS * 24 * 60 * 60 * 1000);
+      await pool.request()
+        .input('email', sql.NVarChar(254), purchaserEmail)
+        .input('claim_token', sql.VarChar(64), claimToken)
+        .input('expires_at', sql.DateTimeOffset(3), refreshedExpiry)
+        .query(`
+          UPDATE dbo.Midnight_Maniac_Invite_Claims
+             SET claim_token = @claim_token,
+               claimed_at = NULL,
+               attested_at = SYSDATETIMEOFFSET(),
+               attested_ip = 'checkout',
+               expires_at = @expires_at
+           WHERE email = @email;
+        `);
+    } else {
+      claimToken = row.claim_token;
+    }
+  } else {
+    claimToken = crypto.randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + CLAIM_TTL_DAYS * 24 * 60 * 60 * 1000);
+    await pool.request()
+      .input('email', sql.NVarChar(254), purchaserEmail)
+      .input('claim_token', sql.VarChar(64), claimToken)
+      .input('expires_at', sql.DateTimeOffset(3), expiresAt)
+      .query(`
+        INSERT INTO dbo.Midnight_Maniac_Invite_Claims
+          (email, claim_token, attested_at, attested_ip, expires_at)
+        VALUES
+          (@email, @claim_token, SYSDATETIMEOFFSET(), 'checkout', @expires_at);
+      `);
+  }
+
+  const downloadUrl = `${getBaseUrl(req)}/api/invite-claim-download?token=${claimToken}`;
+  await sendRewardEmail(purchaserEmail, downloadUrl);
+}
 
 function formatAmount(amount, currency) {
     if (amount == null) return '';
@@ -298,6 +408,10 @@ module.exports = async function (context, req) {
         const lineItems = session.line_items;
 
         await sendOrderEmail(session, lineItems);
+        if (sessionHasSunlitPreRelease(session)) {
+          await issueAndSendSunlitDownloadEmail(session, req);
+          context.log('Sunlit Streets download email sent for session', session.id);
+        }
         context.log('Order notification email sent for session', session.id);
         context.res = { status: 200, body: { received: true } };
     } catch (err) {
